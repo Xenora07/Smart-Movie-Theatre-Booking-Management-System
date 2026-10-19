@@ -1,1 +1,0 @@
-# Smart-Movie-Theatre-Booking-Management-System
