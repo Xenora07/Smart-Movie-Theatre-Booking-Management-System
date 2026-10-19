@@ -22,6 +22,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Customer customer = customerRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Customer not found with email: " + email));
+        if (customer.getPasswordHash() == null) {
+            throw new UsernameNotFoundException("Account does not have web login credentials: " + email);
+        }
         return UserPrincipal.create(customer);
     }
 }

@@ -98,7 +98,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/theatres/**").permitAll()
                         // Admin role protected endpoints
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        // Customer / Authenticated actions
+                        // Customer-only booking operations
+                        .requestMatchers(HttpMethod.POST, "/api/bookings").hasRole("CUSTOMER")
+                        .requestMatchers(HttpMethod.GET, "/api/bookings/my").hasRole("CUSTOMER")
+                        .requestMatchers(HttpMethod.POST, "/api/bookings/*/payment").hasRole("CUSTOMER")
+                        // Single booking details & cancellation: accessible by authenticated users (ownership / admin verified in service)
                         .requestMatchers("/api/bookings/**").authenticated()
                         // Any other request
                         .anyRequest().authenticated()

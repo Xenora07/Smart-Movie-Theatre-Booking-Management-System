@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,9 +90,14 @@ public class BookingService {
             }
         }
 
-        // Server-calculated total amount: show price * seat count
+        // Server-calculated total amount: sum of (unit price * seat type multiplier)
         BigDecimal unitPrice = show.getPrice();
-        BigDecimal totalAmount = unitPrice.multiply(BigDecimal.valueOf(selectedSeats.size()));
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        for (Seat seat : selectedSeats) {
+            BigDecimal seatPrice = unitPrice.multiply(seat.getSeatType().getPriceMultiplier())
+                    .setScale(2, RoundingMode.HALF_UP);
+            totalAmount = totalAmount.add(seatPrice);
+        }
 
         // Create Booking
         Booking booking = new Booking(customer, show, BookingStatus.PENDING, totalAmount);

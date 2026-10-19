@@ -116,6 +116,38 @@ class BookingServiceTest {
     }
 
     @Test
+    void createBooking_success_calculatesSeatTypeMultipliersCorrectly() {
+        Seat regularSeat = new Seat(screen1, "A1", SeatType.REGULAR);
+        regularSeat.setSeatId(101L);
+        Seat premiumSeat = new Seat(screen1, "B1", SeatType.PREMIUM);
+        premiumSeat.setSeatId(102L);
+        Seat reclinerSeat = new Seat(screen1, "C1", SeatType.RECLINER);
+        reclinerSeat.setSeatId(103L);
+
+        // Show price = 200.00: Regular = 200.00, Premium (1.2x) = 240.00, Recliner (1.5x) = 300.00 -> Total = 740.00
+        Show testShow = new Show(movie, screen1, LocalDate.now().plusDays(1), LocalTime.of(18, 0), new BigDecimal("200.00"));
+        testShow.setShowId(20L);
+
+        CreateBookingRequest request = new CreateBookingRequest(20L, Arrays.asList(101L, 102L, 103L));
+
+        when(customerRepository.findByEmail("alice@cinema.local")).thenReturn(Optional.of(customer));
+        when(showRepository.findById(20L)).thenReturn(Optional.of(testShow));
+        when(seatRepository.findAllById(any())).thenReturn(Arrays.asList(regularSeat, premiumSeat, reclinerSeat));
+        when(bookingSeatRepository.existsByShowShowIdAndSeatSeatId(20L, 101L)).thenReturn(false);
+        when(bookingSeatRepository.existsByShowShowIdAndSeatSeatId(20L, 102L)).thenReturn(false);
+        when(bookingSeatRepository.existsByShowShowIdAndSeatSeatId(20L, 103L)).thenReturn(false);
+
+        Booking savedBooking = new Booking(customer, testShow, BookingStatus.PENDING, new BigDecimal("740.00"));
+        savedBooking.setBookingId(200L);
+        when(bookingRepository.save(any(Booking.class))).thenReturn(savedBooking);
+
+        BookingResponseDTO response = bookingService.createBooking(request, "alice@cinema.local");
+
+        assertNotNull(response);
+        assertEquals(new BigDecimal("740.00"), response.getTotalAmount());
+    }
+
+    @Test
     void createBooking_seatFromWrongScreen_throwsBadRequestException() {
         CreateBookingRequest request = new CreateBookingRequest(10L, Arrays.asList(101L, 201L));
 

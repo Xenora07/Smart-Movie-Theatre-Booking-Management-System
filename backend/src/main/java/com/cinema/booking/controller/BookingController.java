@@ -8,6 +8,7 @@ import com.cinema.booking.service.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,28 +24,52 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
+    private String resolveUsername(UserPrincipal userPrincipal, Authentication authentication) {
+        if (userPrincipal != null) {
+            return userPrincipal.getUsername();
+        }
+        if (authentication != null) {
+            return authentication.getName();
+        }
+        return null;
+    }
+
+    private boolean resolveIsAdmin(UserPrincipal userPrincipal, Authentication authentication) {
+        if (userPrincipal != null) {
+            return userPrincipal.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        }
+        if (authentication != null) {
+            return authentication.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        }
+        return false;
+    }
+
     @PostMapping
     public ResponseEntity<BookingResponseDTO> createBooking(
             @Valid @RequestBody CreateBookingRequest request,
-            @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        BookingResponseDTO response = bookingService.createBooking(request, userPrincipal.getUsername());
+            @AuthenticationPrincipal UserPrincipal userPrincipal,
+            Authentication authentication) {
+        BookingResponseDTO response = bookingService.createBooking(request, resolveUsername(userPrincipal, authentication));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/my")
     public ResponseEntity<List<BookingResponseDTO>> getMyBookings(
-            @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        List<BookingResponseDTO> bookings = bookingService.getCustomerBookings(userPrincipal.getUsername());
+            @AuthenticationPrincipal UserPrincipal userPrincipal,
+            Authentication authentication) {
+        List<BookingResponseDTO> bookings = bookingService.getCustomerBookings(resolveUsername(userPrincipal, authentication));
         return ResponseEntity.ok(bookings);
     }
 
     @GetMapping("/{bookingId}")
     public ResponseEntity<BookingResponseDTO> getBookingById(
             @PathVariable Long bookingId,
-            @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        boolean isAdmin = userPrincipal.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-        BookingResponseDTO booking = bookingService.getBookingById(bookingId, userPrincipal.getUsername(), isAdmin);
+            @AuthenticationPrincipal UserPrincipal userPrincipal,
+            Authentication authentication) {
+        boolean isAdmin = resolveIsAdmin(userPrincipal, authentication);
+        BookingResponseDTO booking = bookingService.getBookingById(bookingId, resolveUsername(userPrincipal, authentication), isAdmin);
         return ResponseEntity.ok(booking);
     }
 
@@ -52,20 +77,20 @@ public class BookingController {
     public ResponseEntity<BookingResponseDTO> simulatePayment(
             @PathVariable Long bookingId,
             @Valid @RequestBody SimulatedPaymentRequest request,
-            @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        boolean isAdmin = userPrincipal.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-        BookingResponseDTO response = bookingService.simulatePayment(bookingId, request, userPrincipal.getUsername(), isAdmin);
+            @AuthenticationPrincipal UserPrincipal userPrincipal,
+            Authentication authentication) {
+        boolean isAdmin = resolveIsAdmin(userPrincipal, authentication);
+        BookingResponseDTO response = bookingService.simulatePayment(bookingId, request, resolveUsername(userPrincipal, authentication), isAdmin);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/{bookingId}/cancel")
     public ResponseEntity<BookingResponseDTO> cancelBooking(
             @PathVariable Long bookingId,
-            @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        boolean isAdmin = userPrincipal.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-        BookingResponseDTO response = bookingService.cancelBooking(bookingId, userPrincipal.getUsername(), isAdmin);
+            @AuthenticationPrincipal UserPrincipal userPrincipal,
+            Authentication authentication) {
+        boolean isAdmin = resolveIsAdmin(userPrincipal, authentication);
+        BookingResponseDTO response = bookingService.cancelBooking(bookingId, resolveUsername(userPrincipal, authentication), isAdmin);
         return ResponseEntity.ok(response);
     }
 }

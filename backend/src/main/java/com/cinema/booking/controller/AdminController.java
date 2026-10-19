@@ -147,4 +147,15 @@ public class AdminController {
     public ResponseEntity<List<PaymentDTO>> getAllPayments() {
         return ResponseEntity.ok(adminService.getAllPayments());
     }
+
+    // --- Counter Booking ---
+    @GetMapping("/customers/search")
+    public ResponseEntity<List<CustomerLookupDTO>> searchCustomers(@RequestParam String query) {
+        return ResponseEntity.ok(adminService.searchCustomers(query));
+    }
+
+    @PostMapping("/counter-bookings")
+    public ResponseEntity<BookingResponseDTO> createCounterBooking(@Valid @RequestBody CounterBookingRequest request) {
+        return new ResponseEntity<>(adminService.createCounterBooking(request), HttpStatus.CREATED);
+    }
 }

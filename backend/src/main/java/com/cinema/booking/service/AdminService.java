@@ -7,10 +7,15 @@ import com.cinema.booking.dto.catalogue.*;
 import com.cinema.booking.entity.*;
 import com.cinema.booking.exception.BadRequestException;
 import com.cinema.booking.exception.ResourceNotFoundException;
+import com.cinema.booking.exception.SeatUnavailableException;
 import com.cinema.booking.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +32,8 @@ public class AdminService {
     private final PaymentRepository paymentRepository;
     private final BookingService bookingService;
     private final CatalogueService catalogueService;
+    private final CustomerRepository customerRepository;
+    private final BookingSeatRepository bookingSeatRepository;
 
     public AdminService(MovieRepository movieRepository,
                         TheatreRepository theatreRepository,
@@ -36,7 +43,9 @@ public class AdminService {
                         BookingRepository bookingRepository,
                         PaymentRepository paymentRepository,
                         BookingService bookingService,
-                        CatalogueService catalogueService) {
+                        CatalogueService catalogueService,
+                        CustomerRepository customerRepository,
+                        BookingSeatRepository bookingSeatRepository) {
         this.movieRepository = movieRepository;
         this.theatreRepository = theatreRepository;
         this.screenRepository = screenRepository;
@@ -46,6 +55,8 @@ public class AdminService {
         this.paymentRepository = paymentRepository;
         this.bookingService = bookingService;
         this.catalogueService = catalogueService;
+        this.customerRepository = customerRepository;
+        this.bookingSeatRepository = bookingSeatRepository;
     }
 
     // --- Movie CRUD ---
@@ -265,5 +276,133 @@ public class AdminService {
         return seatRepository.findAll().stream()
                 .map(st -> new SeatDTO(st.getSeatId(), st.getScreen().getScreenId(), st.getSeatNumber(), st.getSeatType()))
                 .collect(Collectors.toList());
+    }
+
+    // --- Counter Booking ---
+    @Transactional(readOnly = true)
+    public List<CustomerLookupDTO> searchCustomers(String query) {
+        if (query == null || query.trim().length() < 2) {
+            return List.of();
+        }
+        String q = query.trim();
+        List<Customer> customers = customerRepository.findByPhoneContainingOrEmailContainingIgnoreCaseOrNameContainingIgnoreCase(q, q, q);
+        return customers.stream()
+                .filter(c -> c.getRole() == CustomerRole.CUSTOMER) // Only show customers, not admins
+                .map(c -> new CustomerLookupDTO(c.getCustomerId(), c.getName(), c.getEmail(), c.getPhone(), c.getRole()))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public BookingResponseDTO createCounterBooking(CounterBookingRequest request) {
+        Show show = showRepository.findById(request.getShowId())
+                .orElseThrow(() -> new ResourceNotFoundException("Show not found with ID: " + request.getShowId()));
+
+        if (request.getSeatIds() == null || request.getSeatIds().isEmpty()) {
+            throw new BadRequestException("At least one seat must be selected.");
+        }
+
+        List<Long> distinctSeatIds = request.getSeatIds().stream().distinct().collect(Collectors.toList());
+        if (distinctSeatIds.size() != request.getSeatIds().size()) {
+            throw new BadRequestException("Duplicate seats found in request.");
+        }
+
+        Long screenId = show.getScreen().getScreenId();
+        List<Seat> selectedSeats = seatRepository.findAllById(distinctSeatIds);
+
+        if (selectedSeats.size() != distinctSeatIds.size()) {
+            throw new BadRequestException("One or more selected seat IDs do not exist.");
+        }
+
+        // Invariant 1: Every seat must belong to the screen hosting the show
+        for (Seat seat : selectedSeats) {
+            if (!seat.getScreen().getScreenId().equals(screenId)) {
+                throw new BadRequestException("Seat " + seat.getSeatNumber() + " does not belong to "
+                        + show.getScreen().getScreenName() + " where this show is hosted.");
+            }
+        }
+
+        // Invariant 2: Verify seats are not already allocated for this show
+        for (Seat seat : selectedSeats) {
+            if (bookingSeatRepository.existsByShowShowIdAndSeatSeatId(show.getShowId(), seat.getSeatId())) {
+                throw new SeatUnavailableException("Seat " + seat.getSeatNumber() + " is already booked for this show.");
+            }
+        }
+
+        // Resolve Customer
+        Customer customer;
+        if (request.getExistingCustomerId() != null) {
+            customer = customerRepository.findById(request.getExistingCustomerId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Customer not found with ID: " + request.getExistingCustomerId()));
+            if (customer.getRole() == CustomerRole.ADMIN) {
+                throw new BadRequestException("Counter bookings cannot be assigned to an administrator account.");
+            }
+        } else {
+            if (request.getCustomerName() == null || request.getCustomerName().trim().isEmpty()) {
+                throw new BadRequestException("Customer name is required for counter booking.");
+            }
+            if (request.getCustomerPhone() == null || request.getCustomerPhone().trim().isEmpty()) {
+                throw new BadRequestException("Customer phone number is required for counter booking.");
+            }
+
+            String phone = request.getCustomerPhone().trim();
+            String email = (request.getCustomerEmail() != null && !request.getCustomerEmail().trim().isEmpty())
+                    ? request.getCustomerEmail().trim().toLowerCase()
+                    : null;
+
+            // Check if existing customer matches this email or phone to avoid creating duplicate customers
+            Customer existing = null;
+            if (email != null) {
+                existing = customerRepository.findByEmail(email).orElse(null);
+            }
+            if (existing == null) {
+                existing = customerRepository.findByPhone(phone).orElse(null);
+            }
+
+            if (existing != null) {
+                customer = existing;
+            } else {
+                customer = new Customer(
+                        request.getCustomerName().trim(),
+                        email,
+                        phone,
+                        null, // Walk-in counter guest has no online password
+                        CustomerRole.CUSTOMER
+                );
+                customer = customerRepository.save(customer);
+            }
+        }
+
+        // Server-calculated total amount: sum of (unit price * seat type multiplier)
+        BigDecimal unitPrice = show.getPrice();
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        for (Seat seat : selectedSeats) {
+            BigDecimal seatPrice = unitPrice.multiply(seat.getSeatType().getPriceMultiplier())
+                    .setScale(2, RoundingMode.HALF_UP);
+            totalAmount = totalAmount.add(seatPrice);
+        }
+
+        // Create Booking with CONFIRMED status immediately
+        Booking booking = new Booking(customer, show, BookingStatus.CONFIRMED, totalAmount);
+        Booking savedBooking = bookingRepository.save(booking);
+
+        // Create BookingSeat allocations atomically
+        List<BookingSeat> bookingSeats = new ArrayList<>();
+        for (Seat seat : selectedSeats) {
+            BookingSeat bookingSeat = new BookingSeat(savedBooking, seat, show);
+            bookingSeats.add(bookingSeat);
+        }
+        bookingSeatRepository.saveAll(bookingSeats);
+
+        // Record simulated payment
+        Payment payment = new Payment(
+                savedBooking,
+                LocalDateTime.now(),
+                totalAmount,
+                request.getPaymentMethod() != null ? request.getPaymentMethod() : PaymentMethod.CASH_SIMULATED,
+                PaymentStatus.SUCCESS
+        );
+        Payment savedPayment = paymentRepository.save(payment);
+
+        return bookingService.mapBookingToDTO(savedBooking, bookingSeats, savedPayment);
     }
 }
