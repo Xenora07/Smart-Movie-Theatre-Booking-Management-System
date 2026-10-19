@@ -1,0 +1,13 @@
+# Example local environment configuration
+# Copy to application-local.properties (ignored by git) or set as environment variables:
+#
+# export DB_URL=jdbc:mysql://localhost:3306/smart_movie_booking?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+# export DB_USERNAME=root
+# export DB_PASSWORD=your_mysql_password
+# export JWT_SECRET=your_custom_256_bit_secure_jwt_secret_key_here
+# export JWT_EXPIRATION_MS=86400000
+
+spring.datasource.url=jdbc:mysql://localhost:3306/smart_movie_booking?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=your_mysql_password
+app.jwt.secret=your_custom_256_bit_secure_jwt_secret_key_here
