@@ -266,7 +266,7 @@ export const AdminDashboardPage = () => {
             <Database size={15} />
             <span>Database Management Console</span>
           </div>
-          <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+          <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
             Cinema Operations &amp; Audits
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem' }}>
@@ -287,10 +287,10 @@ export const AdminDashboardPage = () => {
       {actionSuccess && (
         <div style={{
           padding: '0.9rem 1.4rem',
-          backgroundColor: 'rgba(16, 185, 129, 0.12)',
-          border: '1px solid rgba(16, 185, 129, 0.4)',
+          backgroundColor: 'var(--color-success-bg)',
+          border: '1px solid var(--color-success-border)',
           borderRadius: 'var(--radius-md)',
-          color: '#34d399',
+          color: 'var(--color-success-text)',
           marginBottom: '1.5rem',
           fontWeight: 700,
           display: 'flex',
@@ -358,14 +358,14 @@ export const AdminDashboardPage = () => {
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                   Confirmed Bookings
                 </div>
-                <div style={{ fontSize: '2.2rem', fontWeight: 800, color: '#34d399', marginTop: '0.4rem' }}>
+                <div style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--color-success-text)', marginTop: '0.4rem' }}>
                   {confirmedBookingsCount}
                 </div>
                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', marginTop: '0.4rem' }}>
                   Active reserved reservations
                 </div>
               </div>
-              <div className="stat-icon" style={{ backgroundColor: 'rgba(16, 185, 129, 0.12)', color: '#34d399' }}>
+              <div className="stat-icon" style={{ backgroundColor: 'var(--color-success-bg)', color: 'var(--color-success-text)' }}>
                 <Ticket size={22} />
               </div>
             </div>
@@ -375,7 +375,7 @@ export const AdminDashboardPage = () => {
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                   Active Scheduled Shows
                 </div>
-                <div style={{ fontSize: '2.2rem', fontWeight: 800, color: '#ffffff', marginTop: '0.4rem' }}>
+                <div style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '0.4rem' }}>
                   {shows.length}
                 </div>
                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', marginTop: '0.4rem' }}>
@@ -392,7 +392,7 @@ export const AdminDashboardPage = () => {
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                   Physical Seats Inventory
                 </div>
-                <div style={{ fontSize: '2.2rem', fontWeight: 800, color: '#ffffff', marginTop: '0.4rem' }}>
+                <div style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '0.4rem' }}>
                   {seats.length}
                 </div>
                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', marginTop: '0.4rem' }}>
@@ -421,7 +421,7 @@ export const AdminDashboardPage = () => {
                 <Database size={20} />
               </div>
               <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                   Academic DBMS 9-Table Relational Schema
                 </h3>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>
@@ -496,7 +496,7 @@ export const AdminDashboardPage = () => {
       {activeTab === 'movies' && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
-            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff' }}>Movie Catalogue</h2>
+            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>Movie Catalogue</h2>
             <button onClick={() => openForm('movie')} className="btn btn-primary btn-sm">
               <Plus size={16} />
               <span>Add New Movie</span>
@@ -524,7 +524,7 @@ export const AdminDashboardPage = () => {
                         <MoviePoster src={m.posterUrl} alt={m.title} title={m.title} />
                       </div>
                     </td>
-                    <td style={{ fontWeight: 700, color: '#ffffff' }}>{m.title}</td>
+                    <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{m.title}</td>
                     <td>{m.genre || '—'}</td>
                     <td>{m.durationMinutes ? `${m.durationMinutes}m` : '—'}</td>
                     <td>{m.language || '—'}</td>
@@ -563,7 +563,7 @@ export const AdminDashboardPage = () => {
       {activeTab === 'theatres' && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
-            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff' }}>Theatre Venues</h2>
+            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>Theatre Venues</h2>
             <button onClick={() => openForm('theatre')} className="btn btn-primary btn-sm">
               <Plus size={16} />
               <span>Add Theatre</span>
@@ -584,7 +584,7 @@ export const AdminDashboardPage = () => {
                 {theatres.map((t) => (
                   <tr key={t.theatreId}>
                     <td style={{ fontFamily: 'monospace', color: 'var(--text-muted)' }}>#{t.theatreId}</td>
-                    <td style={{ fontWeight: 700, color: '#ffffff' }}>{t.theatreName}</td>
+                    <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{t.theatreName}</td>
                     <td>{t.location || '—'}</td>
                     <td style={{ textAlign: 'right' }}>
                       <button
@@ -616,7 +616,7 @@ export const AdminDashboardPage = () => {
       {activeTab === 'screens' && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
-            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff' }}>Screens &amp; Auditoriums</h2>
+            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>Screens &amp; Auditoriums</h2>
             <button onClick={() => openForm('screen')} className="btn btn-primary btn-sm">
               <Plus size={16} />
               <span>Add Screen</span>
@@ -638,7 +638,7 @@ export const AdminDashboardPage = () => {
                 {screens.map((s) => (
                   <tr key={s.screenId}>
                     <td style={{ fontFamily: 'monospace', color: 'var(--text-muted)' }}>#{s.screenId}</td>
-                    <td style={{ fontWeight: 700, color: '#ffffff' }}>{s.screenName}</td>
+                    <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{s.screenName}</td>
                     <td>{s.theatreName || `Theatre #${s.theatreId}`}</td>
                     <td>{s.totalSeats || '—'} seats</td>
                     <td style={{ textAlign: 'right' }}>
@@ -671,7 +671,7 @@ export const AdminDashboardPage = () => {
       {activeTab === 'seats' && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
-            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff' }}>Auditorium Seat Layout</h2>
+            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>Auditorium Seat Layout</h2>
             <button onClick={() => openForm('seat')} className="btn btn-primary btn-sm">
               <Plus size={16} />
               <span>Add Seat</span>
@@ -735,7 +735,7 @@ export const AdminDashboardPage = () => {
       {activeTab === 'shows' && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
-            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff' }}>Show Scheduling</h2>
+            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>Show Scheduling</h2>
             <button onClick={() => openForm('show')} className="btn btn-primary btn-sm">
               <Plus size={16} />
               <span>Schedule Show</span>
@@ -759,7 +759,7 @@ export const AdminDashboardPage = () => {
                 {shows.map((show) => (
                   <tr key={show.showId}>
                     <td style={{ fontFamily: 'monospace', color: 'var(--text-muted)' }}>#{show.showId}</td>
-                    <td style={{ fontWeight: 700, color: '#ffffff' }}>{show.movieTitle || `Movie #${show.movieId}`}</td>
+                    <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{show.movieTitle || `Movie #${show.movieId}`}</td>
                     <td>{show.screenName} ({show.theatreName})</td>
                     <td>{show.showDate}</td>
                     <td>{show.showTime ? show.showTime.slice(0, 5) : '—'}</td>
@@ -794,7 +794,7 @@ export const AdminDashboardPage = () => {
       {activeTab === 'bookings' && (
         <div>
           <div style={{ marginBottom: '1.2rem' }}>
-            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff' }}>
+            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>
               Customer Bookings Audit Trail
             </h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
@@ -870,7 +870,7 @@ export const AdminDashboardPage = () => {
       {activeTab === 'payments' && (
         <div>
           <div style={{ marginBottom: '1.2rem' }}>
-            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff' }}>
+            <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>
               Payment Records Audit Trail
             </h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
@@ -928,7 +928,7 @@ export const AdminDashboardPage = () => {
         <div className="modal-backdrop">
           <div className="modal-dialog">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.8rem' }}>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff' }}>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                 {editingItem ? `Edit ${modalType.toUpperCase()}` : `Add New ${modalType.toUpperCase()}`}
               </h3>
               <button

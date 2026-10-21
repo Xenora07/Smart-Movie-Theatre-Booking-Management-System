@@ -128,16 +128,12 @@ export const MovieDetailsPage = () => {
       }}>
         {/* Subtle Backdrop Blur if available */}
         {movie.posterUrl && (
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `url(${movie.posterUrl})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'blur(40px) brightness(0.25)',
-            zIndex: 0,
-            transform: 'scale(1.1)'
-          }} />
+          <div
+            className="movie-details-backdrop"
+            style={{
+              backgroundImage: `url(${movie.posterUrl})`
+            }}
+          />
         )}
         <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', gap: '2.5rem', alignItems: 'flex-start' }}>
           {/* Poster Column */}
@@ -147,7 +143,7 @@ export const MovieDetailsPage = () => {
             borderRadius: 'var(--radius-md)',
             overflow: 'hidden',
             boxShadow: 'var(--shadow-lg), 0 0 24px rgba(0,0,0,0.8)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            border: '1px solid var(--border-light)',
             aspectRatio: '2 / 3'
           }}>
             <MoviePoster
@@ -168,7 +164,8 @@ export const MovieDetailsPage = () => {
               <span style={{
                 fontSize: '0.8rem',
                 color: 'var(--text-muted)',
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                backgroundColor: 'var(--bg-secondary)',
+                border: '1px solid var(--border-subtle)',
                 padding: '4px 10px',
                 borderRadius: 'var(--radius-full)',
                 fontWeight: 600
@@ -177,7 +174,7 @@ export const MovieDetailsPage = () => {
               </span>
             </div>
 
-            <h1 style={{ fontSize: '2.6rem', fontWeight: 800, color: '#ffffff', lineHeight: 1.15, marginBottom: '0.8rem' }}>
+            <h1 style={{ fontSize: '2.6rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.15, marginBottom: '0.8rem' }}>
               {movie.title}
             </h1>
 
@@ -261,7 +258,7 @@ export const MovieDetailsPage = () => {
           <div style={{ color: 'var(--accent-gold)', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.3rem' }}>
             Live Cinema Schedules
           </div>
-          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#ffffff' }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>
             Select Date &amp; Showtime
           </h2>
         </div>
@@ -306,7 +303,7 @@ export const MovieDetailsPage = () => {
                       minWidth: '100px',
                       borderRadius: 'var(--radius-md)',
                       backgroundColor: isSelected ? 'var(--accent-gold)' : 'var(--bg-surface)',
-                      color: isSelected ? '#000000' : 'var(--text-primary)',
+                      color: isSelected ? 'var(--accent-contrast)' : 'var(--text-primary)',
                       border: '1px solid',
                       borderColor: isSelected ? 'var(--accent-gold)' : 'var(--border-subtle)',
                       boxShadow: isSelected ? 'var(--shadow-glow)' : 'none',
@@ -357,7 +354,7 @@ export const MovieDetailsPage = () => {
                           <Building2 size={20} />
                         </div>
                         <div>
-                          <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff' }}>
+                          <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                             {theatreName}
                           </h3>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
@@ -399,10 +396,10 @@ export const MovieDetailsPage = () => {
                                 padding: '0.7rem 1.2rem',
                                 borderRadius: 'var(--radius-sm)',
                                 backgroundColor: isShowSelected ? 'var(--grad-primary)' : 'var(--bg-secondary)',
-                                color: isShowSelected ? '#ffffff' : 'var(--text-primary)',
+                                color: isShowSelected ? 'var(--accent-contrast)' : 'var(--text-primary)',
                                 border: '1px solid',
                                 borderColor: isShowSelected ? 'var(--accent-gold)' : 'var(--border-light)',
-                                boxShadow: isShowSelected ? '0 0 16px rgba(245, 158, 11, 0.4)' : 'none',
+                                boxShadow: isShowSelected ? 'var(--shadow-glow)' : 'none',
                                 transition: 'all 0.2s ease',
                                 minWidth: '105px'
                               }}
@@ -412,7 +409,8 @@ export const MovieDetailsPage = () => {
                               </span>
                               <span style={{
                                 fontSize: '0.72rem',
-                                color: isShowSelected ? 'rgba(255,255,255,0.9)' : 'var(--accent-gold)',
+                                color: isShowSelected ? 'var(--accent-contrast)' : 'var(--accent-gold)',
+                                opacity: isShowSelected ? 0.95 : 1,
                                 fontWeight: 700,
                                 marginTop: '2px'
                               }}>
@@ -420,7 +418,8 @@ export const MovieDetailsPage = () => {
                               </span>
                               <span style={{
                                 fontSize: '0.68rem',
-                                color: isShowSelected ? 'rgba(255,255,255,0.8)' : 'var(--text-muted)',
+                                color: isShowSelected ? 'var(--accent-contrast)' : 'var(--text-muted)',
+                                opacity: isShowSelected ? 0.85 : 1,
                                 marginTop: '1px'
                               }}>
                                 {s.screenName}
@@ -437,28 +436,22 @@ export const MovieDetailsPage = () => {
 
             {/* Persistent Selection Bar */}
             {selectedShowId && (
-              <div style={{
-                position: 'sticky',
-                bottom: '1.5rem',
-                marginTop: '2rem',
-                backgroundColor: 'rgba(16, 21, 34, 0.95)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid rgba(245, 158, 11, 0.4)',
-                borderRadius: 'var(--radius-lg)',
-                padding: '1.2rem 2rem',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: '1rem',
-                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.8), var(--shadow-glow)',
-                zIndex: 50
-              }}>
+              <div
+                className="selected-show-banner"
+                style={{
+                  marginTop: '2rem',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: '1rem'
+                }}
+              >
                 <div>
                   <div style={{ fontSize: '0.78rem', color: 'var(--accent-gold)', fontWeight: 800, textTransform: 'uppercase' }}>
                     Showtime Selected
                   </div>
-                  <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ffffff' }}>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                     {shows.find((s) => s.showId === selectedShowId)?.theatreName} — {shows.find((s) => s.showId === selectedShowId)?.showTime?.slice(0, 5)}
                   </div>
                 </div>

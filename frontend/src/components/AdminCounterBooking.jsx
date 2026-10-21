@@ -222,7 +222,7 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
             height: '42px',
             borderRadius: '10px',
             backgroundColor: 'var(--accent-gold)',
-            color: '#000000',
+            color: 'var(--accent-contrast)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
@@ -230,7 +230,7 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
             <Banknote size={24} />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+            <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
               Box Office Counter Booking Portal
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', margin: 0 }}>
@@ -296,7 +296,7 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
                 fontSize: '0.85rem',
                 border: '1px solid var(--border-light)'
               }}>
-                <div style={{ fontWeight: 800, color: '#ffffff', marginBottom: '0.3rem' }}>
+                <div style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
                   {currentShow.movieTitle}
                 </div>
                 <div style={{ color: 'var(--text-secondary)' }}>
@@ -377,7 +377,7 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
                   }}>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontWeight: 800, color: '#ffffff', fontSize: '1rem' }}>
+                        <span style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '1rem' }}>
                           {selectedCustomer.name}
                         </span>
                         <span style={{
@@ -447,7 +447,7 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
                             className="search-result-item"
                           >
                             <div>
-                              <div style={{ fontWeight: 700, color: '#ffffff' }}>{c.name}</div>
+                              <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{c.name}</div>
                               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
                                 {c.phone} • {c.email}
                               </div>
@@ -518,7 +518,7 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
                 <div style={{ color: 'var(--accent-gold)', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase' }}>
                   Step 3: Seat Layout &amp; Availability
                 </div>
-                <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
                   Click to Allocate Counter Seats
                 </h3>
               </div>
@@ -531,7 +531,7 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                   <div style={{ width: '16px', height: '16px', borderRadius: '4px', backgroundColor: 'var(--accent-gold)', boxShadow: 'var(--shadow-glow)' }} />
-                  <span style={{ color: '#ffffff', fontWeight: 700 }}>Selected ({selectedSeatIds.length})</span>
+                  <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>Selected ({selectedSeatIds.length})</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                   <div style={{ width: '16px', height: '16px', borderRadius: '4px', backgroundColor: 'rgba(255, 255, 255, 0.08)', opacity: 0.4 }} />
@@ -614,10 +614,10 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
                             ? 'var(--bg-secondary)'
                             : 'rgba(255, 255, 255, 0.05)',
                           color: isSelected
-                            ? '#000000'
+                            ? 'var(--accent-contrast)'
                             : isAvailable
                             ? 'var(--text-primary)'
-                            : 'rgba(255, 255, 255, 0.2)',
+                            : 'var(--text-faint)',
                           borderColor: isSelected
                             ? 'var(--accent-gold)'
                             : isAvailable
@@ -644,8 +644,8 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
         {selectedSeatIds.length > 0 && (
           <div className="card-box" style={{
             padding: '2rem',
-            backgroundColor: 'rgba(16, 21, 34, 0.95)',
-            border: '1px solid rgba(245, 158, 11, 0.4)',
+            backgroundColor: 'var(--bg-surface)',
+            border: '1px solid var(--border-accent)',
             boxShadow: 'var(--shadow-lg)'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
@@ -653,7 +653,7 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
                 <div style={{ color: 'var(--accent-gold)', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase' }}>
                   Step 4: POS Payment &amp; Issue Ticket
                 </div>
-                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#ffffff', marginTop: '0.2rem' }}>
+                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '0.2rem' }}>
                   Authoritative Total: ₹{totalPrice.toFixed(2)}
                 </div>
                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginTop: '0.3rem' }}>
@@ -684,7 +684,7 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
                         border: '1px solid',
                         borderColor: isChosen ? 'var(--accent-gold)' : 'var(--border-light)',
                         backgroundColor: isChosen ? 'var(--accent-gold)' : 'var(--bg-secondary)',
-                        color: isChosen ? '#000000' : 'var(--text-primary)',
+                        color: isChosen ? 'var(--accent-contrast)' : 'var(--text-primary)',
                         fontWeight: 700,
                         fontSize: '0.85rem',
                         cursor: 'pointer',
@@ -757,7 +757,7 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
                 <span>Box Office Counter Sale Confirmed</span>
               </div>
 
-              <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.4rem' }}>
+              <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
                 Cinema Boarding Pass
               </h2>
               <div style={{ color: 'var(--accent-gold)', fontWeight: 800, fontSize: '1.1rem', marginBottom: '1.8rem' }}>
@@ -776,11 +776,11 @@ export const AdminCounterBooking = ({ shows, movies, onBookingSuccess }) => {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1rem', marginBottom: '1rem' }}>
                   <div>
                     <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Movie Title</span>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ffffff' }}>{confirmedBooking.movieTitle}</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>{confirmedBooking.movieTitle}</div>
                   </div>
                   <div>
                     <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Customer Name</span>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ffffff' }}>{confirmedBooking.customerName}</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>{confirmedBooking.customerName}</div>
                   </div>
                 </div>
 

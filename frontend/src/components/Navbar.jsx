@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { ThemeSelector } from './ThemeSelector';
 import { Film, Ticket, LayoutDashboard, User, LogOut, Menu, X, Clapperboard, Compass } from 'lucide-react';
 
 export const Navbar = () => {
@@ -69,8 +70,10 @@ export const Navbar = () => {
           )}
         </ul>
 
-        {/* Auth / Profile Area */}
+        {/* Auth / Profile & Theme Area */}
         <div className="nav-auth">
+          <ThemeSelector />
+
           {isAuthenticated ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
               <div className="user-pill">
@@ -149,6 +152,8 @@ export const Navbar = () => {
               <span>Admin Console</span>
             </Link>
           )}
+
+          <ThemeSelector compact={true} />
         </div>
       )}
     </nav>

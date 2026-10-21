@@ -71,7 +71,7 @@ export const MoviesPage = () => {
           <Film size={16} />
           <span>Cinematic Catalogue</span>
         </div>
-        <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+        <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
           Explore Movies
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
@@ -177,7 +177,7 @@ export const MoviesPage = () => {
                   fontSize: '0.82rem',
                   fontWeight: 600,
                   backgroundColor: selectedGenre === genre ? 'var(--accent-gold)' : 'var(--bg-secondary)',
-                  color: selectedGenre === genre ? '#000000' : 'var(--text-secondary)',
+                  color: selectedGenre === genre ? 'var(--accent-contrast)' : 'var(--text-secondary)',
                   border: '1px solid',
                   borderColor: selectedGenre === genre ? 'var(--accent-gold)' : 'var(--border-subtle)',
                   transition: 'all 0.2s ease'

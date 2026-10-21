@@ -32,7 +32,7 @@ export const Footer = () => {
               }}>
                 <Clapperboard size={16} color="#ffffff" />
               </div>
-              <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#ffffff' }}>
+              <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                 Cine<span style={{ color: 'var(--accent-gold)' }}>Wave</span>
               </span>
             </div>
@@ -43,7 +43,7 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 style={{ color: '#ffffff', fontSize: '0.9rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.9rem' }}>
+            <h4 style={{ color: 'var(--text-primary)', fontSize: '0.9rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.9rem' }}>
               Cinema Navigation
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -64,7 +64,7 @@ export const Footer = () => {
 
           {/* System & Architecture */}
           <div>
-            <h4 style={{ color: '#ffffff', fontSize: '0.9rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.9rem' }}>
+            <h4 style={{ color: 'var(--text-primary)', fontSize: '0.9rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.9rem' }}>
               DBMS Architecture
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.82rem' }}>

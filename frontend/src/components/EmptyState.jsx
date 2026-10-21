@@ -30,7 +30,7 @@ export const EmptyState = ({
       }}>
         <Icon size={30} />
       </div>
-      <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.5rem' }}>
+      <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
         {title}
       </h3>
       {description && (

@@ -62,7 +62,7 @@ export const LoginPage = () => {
           }}>
             <Clapperboard size={24} color="#ffffff" />
           </div>
-          <h1 style={{ fontSize: '1.9rem', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em', marginBottom: '0.4rem' }}>
+          <h1 style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: '0.4rem' }}>
             Welcome Back
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem' }}>

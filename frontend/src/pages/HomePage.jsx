@@ -78,7 +78,8 @@ export const HomePage = () => {
               <span style={{
                 fontSize: '0.78rem',
                 color: 'var(--text-muted)',
-                backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                backgroundColor: 'var(--bg-secondary)',
+                border: '1px solid var(--border-subtle)',
                 padding: '4px 10px',
                 borderRadius: 'var(--radius-full)',
                 fontWeight: 600
@@ -165,7 +166,7 @@ export const HomePage = () => {
               <Clapperboard size={16} />
               <span>In Theatres Today</span>
             </div>
-            <h2 style={{ fontSize: '1.85rem', fontWeight: 800, color: '#ffffff' }}>
+            <h2 style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-primary)' }}>
               Now Showing
             </h2>
           </div>
@@ -239,7 +240,7 @@ export const HomePage = () => {
               <div style={{ color: 'var(--accent-gold)', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.3rem' }}>
                 Upcoming Releases
               </div>
-              <h2 style={{ fontSize: '1.85rem', fontWeight: 800, color: '#ffffff' }}>
+              <h2 style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                 Coming Soon
               </h2>
             </div>
@@ -298,7 +299,7 @@ export const HomePage = () => {
             <div style={{ color: 'var(--accent-gold)', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.3rem' }}>
               Cinema Locations
             </div>
-            <h2 style={{ fontSize: '1.85rem', fontWeight: 800, color: '#ffffff' }}>
+            <h2 style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--text-primary)' }}>
               Popular Theatres Near You
             </h2>
           </div>
@@ -324,7 +325,7 @@ export const HomePage = () => {
                     <Building2 size={22} />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#ffffff' }}>
+                    <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                       {t.theatreName}
                     </h3>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
@@ -362,7 +363,7 @@ export const HomePage = () => {
       {/* 5. CineWave VIP Experience Callout */}
       <section className="card-box card-box-glow" style={{
         padding: '2.5rem',
-        background: 'linear-gradient(135deg, rgba(22, 29, 45, 0.9) 0%, rgba(13, 18, 28, 0.95) 100%)',
+        background: 'var(--grad-ticket)',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
         gap: '2rem',
@@ -383,7 +384,7 @@ export const HomePage = () => {
             <Armchair size={24} />
           </div>
           <div>
-            <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.3rem' }}>
+            <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
               Multi-Tier Luxury Seating
             </h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.86rem', lineHeight: 1.5 }}>
@@ -407,7 +408,7 @@ export const HomePage = () => {
             <ShieldCheck size={24} />
           </div>
           <div>
-            <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.3rem' }}>
+            <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
               Zero Double-Booking
             </h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.86rem', lineHeight: 1.5 }}>
@@ -431,7 +432,7 @@ export const HomePage = () => {
             <Ticket size={24} />
           </div>
           <div>
-            <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.3rem' }}>
+            <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
               Instant Digital Boarding Pass
             </h4>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.86rem', lineHeight: 1.5 }}>

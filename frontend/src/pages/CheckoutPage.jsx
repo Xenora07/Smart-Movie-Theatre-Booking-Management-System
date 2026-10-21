@@ -138,7 +138,7 @@ export const CheckoutPage = () => {
           <ShieldCheck size={14} />
           <span>Simulated Checkout Portal</span>
         </div>
-        <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#ffffff' }}>
+        <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>
           Confirm &amp; Pay
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem' }}>
@@ -159,7 +159,7 @@ export const CheckoutPage = () => {
             borderBottom: '1px solid var(--border-subtle)',
             paddingBottom: '0.8rem'
           }}>
-            <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#ffffff' }}>
+            <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>
               Booking Summary
             </h2>
             <span style={{ fontSize: '0.78rem', fontFamily: 'monospace', color: 'var(--accent-gold)', fontWeight: 700 }}>
@@ -168,7 +168,7 @@ export const CheckoutPage = () => {
           </div>
 
           <div style={{ marginBottom: '1.5rem' }}>
-            <div style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.3rem' }}>
+            <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
               {booking.movieTitle}
             </div>
             <div style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -191,7 +191,7 @@ export const CheckoutPage = () => {
               <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', textTransform: 'uppercase', fontWeight: 700 }}>
                 Screen Date
               </div>
-              <div style={{ fontWeight: 600, color: '#ffffff', marginTop: '2px' }}>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginTop: '2px' }}>
                 {booking.showDate}
               </div>
             </div>
@@ -199,7 +199,7 @@ export const CheckoutPage = () => {
               <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', textTransform: 'uppercase', fontWeight: 700 }}>
                 Showtime
               </div>
-              <div style={{ fontWeight: 600, color: '#ffffff', marginTop: '2px' }}>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginTop: '2px' }}>
                 {booking.showTime ? booking.showTime.slice(0, 5) : ''}
               </div>
             </div>
@@ -210,7 +210,7 @@ export const CheckoutPage = () => {
             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.6rem' }}>
               Allocated Seats ({booking.bookedSeats?.length || 0}):
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'gap', gap: '0.5rem' }}>
               {booking.bookedSeats?.map((s) => (
                 <div
                   key={s.seatId}
@@ -252,7 +252,7 @@ export const CheckoutPage = () => {
 
         {/* Right Column: Simulated Payment Selector */}
         <div className="card-box" style={{ padding: '2rem' }}>
-          <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#ffffff', marginBottom: '1.2rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.8rem' }}>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '1.2rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.8rem' }}>
             Select Payment Method
           </h2>
 
@@ -275,8 +275,8 @@ export const CheckoutPage = () => {
                       gap: '0.9rem',
                       padding: '0.9rem 1.1rem',
                       borderRadius: 'var(--radius-sm)',
-                      backgroundColor: isSelected ? 'rgba(245, 158, 11, 0.12)' : 'var(--bg-secondary)',
-                      border: '1px solid',
+                      backgroundColor: isSelected ? 'var(--bg-surface-hover)' : 'var(--bg-secondary)',
+                      border: '1.5px solid',
                       borderColor: isSelected ? 'var(--accent-gold)' : 'var(--border-subtle)',
                       cursor: 'pointer',
                       transition: 'all 0.2s ease'
@@ -294,7 +294,7 @@ export const CheckoutPage = () => {
                       width: '36px',
                       height: '36px',
                       borderRadius: '8px',
-                      backgroundColor: isSelected ? 'rgba(245, 158, 11, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                      backgroundColor: isSelected ? 'var(--border-accent)' : 'var(--border-subtle)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -303,7 +303,7 @@ export const CheckoutPage = () => {
                       <IconComponent size={20} />
                     </div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: 700, fontSize: '0.92rem', color: isSelected ? '#ffffff' : 'var(--text-primary)' }}>
+                      <div style={{ fontWeight: 700, fontSize: '0.92rem', color: 'var(--text-primary)' }}>
                         {m.name}
                       </div>
                       <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>

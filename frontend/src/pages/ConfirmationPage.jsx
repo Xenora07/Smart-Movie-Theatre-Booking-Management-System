@@ -68,20 +68,20 @@ export const ConfirmationPage = () => {
         <div style={{
           width: '72px',
           height: '72px',
-          backgroundColor: 'rgba(16, 185, 129, 0.15)',
+          backgroundColor: 'var(--color-success-bg)',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           margin: '0 auto 1.2rem',
-          color: 'var(--accent-green)',
-          border: '1px solid rgba(16, 185, 129, 0.35)',
-          boxShadow: '0 0 24px rgba(16, 185, 129, 0.25)'
+          color: 'var(--color-success-text)',
+          border: '1px solid var(--color-success-border)',
+          boxShadow: '0 0 24px var(--color-success-border)'
         }}>
           <CheckCircle2 size={36} />
         </div>
 
-        <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em', marginBottom: '0.4rem' }}>
+        <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: '0.4rem' }}>
           Booking Confirmed!
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem' }}>
@@ -98,12 +98,12 @@ export const ConfirmationPage = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              borderBottom: '1px dashed rgba(255, 255, 255, 0.12)',
+              borderBottom: '1px dashed var(--border-subtle)',
               paddingBottom: '1rem',
               marginBottom: '1.4rem'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff' }}>
+                <span style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                   Cine<span style={{ color: 'var(--accent-gold)' }}>Wave</span>
                 </span>
                 <span style={{
@@ -130,7 +130,7 @@ export const ConfirmationPage = () => {
                   overflow: 'hidden',
                   aspectRatio: '2/3',
                   flexShrink: 0,
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  border: '1px solid var(--border-light)',
                   boxShadow: 'var(--shadow-md)'
                 }}>
                   <img
@@ -141,7 +141,7 @@ export const ConfirmationPage = () => {
                 </div>
               )}
               <div>
-                <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff', lineHeight: 1.25, marginBottom: '0.4rem' }}>
+                <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.25, marginBottom: '0.4rem' }}>
                   {booking.movieTitle}
                 </h2>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
@@ -159,7 +159,7 @@ export const ConfirmationPage = () => {
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
               gap: '1rem',
-              backgroundColor: 'rgba(0, 0, 0, 0.3)',
+              backgroundColor: 'var(--bg-secondary)',
               padding: '1.1rem',
               borderRadius: 'var(--radius-sm)',
               marginBottom: '1.2rem',
@@ -169,7 +169,7 @@ export const ConfirmationPage = () => {
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
                   Date
                 </div>
-                <div style={{ fontWeight: 700, color: '#ffffff', marginTop: '2px' }}>
+                <div style={{ fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
                   {booking.showDate}
                 </div>
               </div>
@@ -178,7 +178,7 @@ export const ConfirmationPage = () => {
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
                   Time
                 </div>
-                <div style={{ fontWeight: 700, color: '#ffffff', marginTop: '2px' }}>
+                <div style={{ fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
                   {booking.showTime ? booking.showTime.slice(0, 5) : ''}
                 </div>
               </div>
@@ -236,7 +236,7 @@ export const ConfirmationPage = () => {
               <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 800, letterSpacing: '0.05em' }}>
                 Ticket Voucher
               </div>
-              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff', fontFamily: 'monospace', marginTop: '2px' }}>
+              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'monospace', marginTop: '2px' }}>
                 #{booking.bookingId}
               </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>

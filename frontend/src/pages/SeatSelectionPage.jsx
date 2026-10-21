@@ -162,7 +162,7 @@ export const SeatSelectionPage = () => {
             <MapPin size={14} />
             <span>{show.theatreName} — {show.screenName}</span>
           </div>
-          <h1 style={{ fontSize: '1.9rem', fontWeight: 800, color: '#ffffff' }}>
+          <h1 style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--text-primary)' }}>
             {show.movieTitle}
           </h1>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '1rem', marginTop: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.88rem' }}>
@@ -236,50 +236,46 @@ export const SeatSelectionPage = () => {
         {/* Seat Legend with Multiplier Prices */}
         <div className="seat-legend">
           <div className="legend-item">
-            <div className="legend-swatch" style={{ backgroundColor: '#1e2638', border: '1px solid rgba(255,255,255,0.1)' }} />
+            <div className="seat-cell regular legend-swatch" />
             <span>Regular (₹{Number(show.price).toFixed(0)})</span>
           </div>
           <div className="legend-item">
-            <div className="legend-swatch" style={{ backgroundColor: '#1d3354', border: '1px solid rgba(59,130,246,0.35)' }} />
+            <div className="seat-cell premium legend-swatch" />
             <span>Premium (₹{(Number(show.price) * 1.2).toFixed(0)})</span>
           </div>
           <div className="legend-item">
-            <div className="legend-swatch" style={{ backgroundColor: '#3b2818', border: '1px solid rgba(245,158,11,0.35)' }} />
+            <div className="seat-cell recliner legend-swatch" />
             <span>Recliner (₹{(Number(show.price) * 1.5).toFixed(0)})</span>
           </div>
           <div className="legend-item">
-            <div className="legend-swatch" style={{ background: 'var(--grad-primary)' }} />
+            <div className="seat-cell selected legend-swatch" />
             <span>Selected</span>
           </div>
           <div className="legend-item">
-            <div className="legend-swatch" style={{ backgroundColor: '#111520', border: '1px solid rgba(255,255,255,0.04)', opacity: 0.45 }} />
+            <div className="seat-cell booked legend-swatch" />
             <span>Booked (Unavailable)</span>
           </div>
         </div>
       </div>
 
       {/* Floating Booking Checkout Summary Bar */}
-      <div style={{
-        backgroundColor: 'var(--bg-surface)',
-        border: '1px solid rgba(245, 158, 11, 0.35)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '1.4rem 2rem',
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        gap: '1.5rem',
-        boxShadow: 'var(--shadow-lg), var(--shadow-glow)',
-        position: 'sticky',
-        bottom: '1.5rem',
-        zIndex: 100
-      }}>
+      <div
+        className="selected-show-banner"
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: '1.5rem',
+          marginTop: '2rem'
+        }}
+      >
         {/* Selected Seats summary */}
         <div>
           <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.2rem' }}>
             Selected Seats ({selectedSeatIds.length})
           </div>
-          <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff' }}>
+          <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary)' }}>
             {selectedSeatsList.length > 0 ? (
               selectedSeatsList.map((s) => `${s.seatNumber} (${s.seatType.slice(0, 3)})`).join(', ')
             ) : (

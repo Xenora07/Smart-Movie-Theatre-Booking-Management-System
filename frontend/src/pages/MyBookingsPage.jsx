@@ -81,7 +81,7 @@ export const MyBookingsPage = () => {
             <Ticket size={16} />
             <span>Customer Reservations</span>
           </div>
-          <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+          <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
             My Reserved Tickets
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem' }}>
@@ -161,7 +161,7 @@ export const MyBookingsPage = () => {
                 className="card-box"
                 style={{
                   padding: '1.8rem',
-                  borderLeft: isConfirmed ? '4px solid #10b981' : isCancelled ? '4px solid #ef4444' : '4px solid #f59e0b',
+                  borderLeft: isConfirmed ? '4px solid var(--color-success-text)' : isCancelled ? '4px solid var(--accent-red)' : '4px solid var(--accent-gold)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '1.2rem'
@@ -178,7 +178,7 @@ export const MyBookingsPage = () => {
                   paddingBottom: '0.9rem'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-                    <span style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff', fontFamily: 'monospace' }}>
+                    <span style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'monospace' }}>
                       BOOKING #{b.bookingId}
                     </span>
                     <span className={`badge ${isConfirmed ? 'badge-confirmed' : isCancelled ? 'badge-cancelled' : 'badge-pending'}`}>
@@ -200,7 +200,7 @@ export const MyBookingsPage = () => {
                 }}>
                   {/* Film Details */}
                   <div>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.3rem' }}>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
                       {b.movieTitle}
                     </h3>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--text-muted)', fontSize: '0.86rem' }}>
@@ -275,7 +275,7 @@ export const MyBookingsPage = () => {
                   borderTop: '1px solid var(--border-subtle)',
                   paddingTop: '0.9rem'
                 }}>
-                  <div style={{ fontSize: '0.82rem', color: isCancelled ? '#f87171' : 'var(--accent-green)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <div style={{ fontSize: '0.82rem', color: isCancelled ? 'var(--color-error-text)' : 'var(--color-success-text)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     {isCancelled ? (
                       <>
                         <XCircle size={15} />
